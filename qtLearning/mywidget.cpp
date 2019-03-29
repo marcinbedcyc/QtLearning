@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <cmath>
 #include <algorithm>
+#include <stack>
+#include <unistd.h>
 
 MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
 {
@@ -15,6 +17,9 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
     isPaintedElipse = false;
     //putCirclevol1(300, 300, 200, &im, red, green, blue);
     //putElipse(200, 200, 100, 50, 0, &im, red, green, blue);
+    QColor curr = QColor(0, 0, 0, 255);
+    QColor newColor = QColor(255,  0, 0, 255);
+    floodFill(QPoint(100, 100), curr.rgb(), newColor.rgb(), &im);
 }
 
 void MyWidget::paintEvent(QPaintEvent *)
@@ -102,6 +107,12 @@ void MyWidget::mouseMoveEvent(QMouseEvent *e)
 
 void MyWidget::mousePressEvent(QMouseEvent *e)
 {
+    if(wybor == "FloodFill"){
+        QPoint p = QPoint(e->x(), e->y());
+        floodFill(p, im.pixel(p.x(), p.y()), fillColor.rgb(), &im);
+        update();
+    }
+
     if(e->button() == Qt::LeftButton){
         pressX = e->x();
         pressY = e->y();
@@ -260,6 +271,32 @@ void MyWidget::putElipse(int x0, int y0, int r1, int r2, double beta, QImage *im
 
         previousY = finalY;
         previousX = finalX;
+    }
+}
+
+void MyWidget::floodFill(QPoint p, QRgb currentColor, QRgb newColor, QImage *imag)
+{
+    std::stack<QPoint> stack;
+    if(imag->pixel(p) != currentColor)
+        return;
+    stack.push(p);
+    while(!stack.empty()){
+        QPoint temp = stack.top();
+        stack.pop();
+        if((imag->pixel(temp) == currentColor)){
+            int w = temp.x(), e = temp.x(), y = temp.y();
+            while((w > 0) && (imag->pixel(QPoint(w, y)) == currentColor))w--;
+            while((e < imag->width()) && (imag->pixel(QPoint(e, y)) == currentColor))e++;
+            for(int i=w+1; i < e; i++){
+                imag->setPixel(i, y, newColor);
+            }
+            for(int i=w+1; i < e; i++){
+                if(y != imag->height()-1)
+                    if(imag->pixel(i, y+1) == currentColor) stack.push(QPoint(i, y+1));
+                if(y != 0)
+                    if(imag->pixel(i, y-1) == currentColor) stack.push(QPoint(i, y-1));
+            }
+        }
     }
 }
 

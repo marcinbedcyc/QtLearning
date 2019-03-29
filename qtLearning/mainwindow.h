@@ -26,6 +26,8 @@ private slots:
 
     void on_elipseRotationSlider_valueChanged(int value);
 
+    void on_floodFillButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

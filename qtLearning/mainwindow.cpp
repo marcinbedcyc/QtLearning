@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     namesMenu->append("Spray");
     namesMenu->append("Okrag");
     namesMenu->append("Elipsa");
+    namesMenu->append("FloodFill");
     ui->comboBox->addItems(*namesMenu);
 
     QPalette pal;
@@ -25,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->spraySlider->setHidden(true);
     ui->elipseRotationSlider->setHidden(true);
+    ui->floodFillLabel->setHidden(true);
+    ui->floodFillButton->setHidden(true);
 }
 
 MainWindow::~MainWindow()
@@ -38,14 +41,26 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
     if(arg1 == "Spray"){
         ui->spraySlider->show();
         ui->elipseRotationSlider->setHidden(true);
+        ui->floodFillLabel->setHidden(true);
+        ui->floodFillButton->setHidden(true);
     }
     else if(arg1 == "Elipsa"){
         ui->elipseRotationSlider->show();
         ui->spraySlider->setHidden(true);
+        ui->floodFillLabel->setHidden(true);
+        ui->floodFillButton->setHidden(true);
+    }
+    else if(arg1 == "FloodFill"){
+        ui->floodFillLabel->show();
+        ui->floodFillButton->show();
+        ui->spraySlider->setHidden(true);
+        ui->elipseRotationSlider->setHidden(true);
     }
     else {
         ui->spraySlider->setHidden(true);
         ui->elipseRotationSlider->setHidden(true);
+        ui->floodFillLabel->setHidden(true);
+        ui->floodFillButton->setHidden(true);
     }
 }
 
@@ -78,4 +93,15 @@ void MainWindow::on_elipseRotationSlider_valueChanged(int value)
         ui->widget->setElipseBeta(value/100.0);
         ui->widget->paintRotatedElipse();
     }
+}
+
+void MainWindow::on_floodFillButton_clicked()
+{
+    QColor color = QColorDialog::getColor(Qt::white,this);
+    ui->widget->fillColor = color;
+
+    QPalette pal;
+    pal.setColor(QPalette::Button, color);
+    ui->floodFillButton->setAutoFillBackground(true);
+    ui->floodFillButton->setPalette(pal);
 }

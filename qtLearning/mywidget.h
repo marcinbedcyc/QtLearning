@@ -10,6 +10,7 @@ class MyWidget : public QWidget
 public:
     explicit MyWidget(QWidget *parent = nullptr);
     int  red, green, blue;
+    QColor fillColor;
     void setWybor(const QString &value);
     void clearIm();
     void setSpraySize(int value);
@@ -29,6 +30,7 @@ protected:
     void putLineVol2(int x1, int y1, int x2, int y2, QImage *imag, int r, int g, int b);
     void putCirclevol1(int x0, int y0, int R, QImage *imag, int r, int g, int b);
     void putElipse(int x0, int y0, int r1, int r2, double beta, QImage *imag, int r, int g, int b);
+    void floodFill(QPoint p, QRgb currentColor, QRgb newColor, QImage *imag);
 
 private:
     QImage im, copy;
