@@ -11,6 +11,7 @@ public:
     explicit MyWidget(QWidget *parent = nullptr);
     int  red, green, blue;
     QColor fillColor;
+    std::vector<QPoint> scanLinePoints;
     void setWybor(const QString &value);
     void clearIm();
     void setSpraySize(int value);
@@ -18,6 +19,7 @@ public:
     void paintRotatedElipse();
     bool getIsPaintedElipse() const;
     void setIsPaintedElipse(bool value);
+    void scanLine(std::vector<QPoint> polygon);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -31,6 +33,7 @@ protected:
     void putCirclevol1(int x0, int y0, int R, QImage *imag, int r, int g, int b);
     void putElipse(int x0, int y0, int r1, int r2, double beta, QImage *imag, int r, int g, int b);
     void floodFill(QPoint p, QRgb currentColor, QRgb newColor, QImage *imag);
+    void putDot(int x, int y, QImage *imag, int r, int g, int b);
 
 private:
     QImage im, copy;

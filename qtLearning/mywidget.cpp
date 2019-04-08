@@ -5,7 +5,6 @@
 #include <cmath>
 #include <algorithm>
 #include <stack>
-#include <unistd.h>
 
 MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
 {
@@ -15,11 +14,27 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
     spraySize = 30;
     elipseBeta = 0;
     isPaintedElipse = false;
-    //putCirclevol1(300, 300, 200, &im, red, green, blue);
-    //putElipse(200, 200, 100, 50, 0, &im, red, green, blue);
-    QColor curr = QColor(0, 0, 0, 255);
-    QColor newColor = QColor(255,  0, 0, 255);
-    floodFill(QPoint(100, 100), curr.rgb(), newColor.rgb(), &im);
+
+    std::vector<QPoint> punkty;
+    punkty.push_back(QPoint(300, 50));
+    //putPixel(300, 50, &im, 255, 255, 255);
+
+    punkty.push_back(QPoint(400, 150));
+    //putPixel(400, 150, &im, 255, 255, 255);
+
+    punkty.push_back(QPoint(500, 50));
+    //putPixel(500, 50, &im, 255, 255, 255);
+
+    punkty.push_back(QPoint(400, 200));
+    //putPixel(300, 200, &im, 255, 255, 255);
+
+    punkty.push_back(QPoint(300, 250));
+    //putPixel(300, 250, &im, 255, 255, 255);
+
+    punkty.push_back(QPoint(200, 150));
+    //putPixel(200, 150, &im, 255, 255, 255);
+
+    //scanLine(punkty);
 }
 
 void MyWidget::paintEvent(QPaintEvent *)
@@ -110,6 +125,13 @@ void MyWidget::mousePressEvent(QMouseEvent *e)
     if(wybor == "FloodFill"){
         QPoint p = QPoint(e->x(), e->y());
         floodFill(p, im.pixel(p.x(), p.y()), fillColor.rgb(), &im);
+        update();
+    }
+
+    if(wybor == "ScanLine"){
+        QPoint p = QPoint(e->x(), e->y());
+        putDot(p.x(), p.y(), &im, red, green, blue);
+        scanLinePoints.push_back(p);
         update();
     }
 
@@ -277,6 +299,10 @@ void MyWidget::putElipse(int x0, int y0, int r1, int r2, double beta, QImage *im
 void MyWidget::floodFill(QPoint p, QRgb currentColor, QRgb newColor, QImage *imag)
 {
     std::stack<QPoint> stack;
+    if(currentColor == newColor){
+        qDebug("Te same kolory!");
+        return;
+    }
     if(imag->pixel(p) != currentColor)
         return;
     stack.push(p);
@@ -285,7 +311,7 @@ void MyWidget::floodFill(QPoint p, QRgb currentColor, QRgb newColor, QImage *ima
         stack.pop();
         if((imag->pixel(temp) == currentColor)){
             int w = temp.x(), e = temp.x(), y = temp.y();
-            while((w > 0) && (imag->pixel(QPoint(w, y)) == currentColor))w--;
+            while((w >= 0) && (imag->pixel(QPoint(w, y)) == currentColor))w--;
             while((e < imag->width()) && (imag->pixel(QPoint(e, y)) == currentColor))e++;
             for(int i=w+1; i < e; i++){
                 imag->setPixel(i, y, newColor);
@@ -297,6 +323,66 @@ void MyWidget::floodFill(QPoint p, QRgb currentColor, QRgb newColor, QImage *ima
                     if(imag->pixel(i, y-1) == currentColor) stack.push(QPoint(i, y-1));
             }
         }
+    }
+}
+
+void MyWidget::scanLine(std::vector<QPoint> polygon)
+{
+    int yMin, yMax, x;
+    QPoint prev;
+    struct krawedz{
+        QPoint poczatek, koniec;
+    };
+    std::vector<krawedz> krawedzie;
+    std::vector<int> przeciecia;
+
+    yMax = yMin = polygon[0].y();
+    prev = polygon[0];
+
+    for(std::size_t i = 1; i < polygon.size(); i++){
+        if(polygon[i].y() > yMax) yMax = polygon[i].y();
+        if(polygon[i].y() < yMin) yMin = polygon[i].y();
+        krawedzie.push_back(krawedz({prev, polygon[i]}));
+        //putLineVol2(prev.x(), prev.y(), polygon[i].x(), polygon[i].y(), &im, 0, 255, 0);
+        prev = polygon[i];
+    }
+
+    krawedzie.push_back(krawedz({prev, polygon[0]}));
+
+    for(int y=yMin; y<=yMax; y++){
+        for(krawedz k: krawedzie){
+            if( k.poczatek.y() < k.koniec.y() ){
+                if(k.poczatek.y() <= y && k.koniec.y() >= y){
+                    int a = k.koniec.x() - k.poczatek.x();
+                    int b = k.koniec.y() - k.poczatek.y();
+                    int c = y - k.poczatek.y();
+                    if(y != k.koniec.y()){
+                        x = int(k.poczatek.x() + float(a*c/b));
+                        przeciecia.push_back(x);
+                    }
+                }
+            }
+            else if(k.koniec.y() < k.poczatek.y()){
+                if(k.poczatek.y() >= y && k.koniec.y() <= y){
+                    int a = k.poczatek.x() - k.koniec.x();
+                    int b = k.poczatek.y() - k.koniec.y();
+                    int c = y - k.koniec.y();
+                    if(y != k.poczatek.y()){
+                        x = int(k.koniec.x() + float(a*c/b));
+                        przeciecia.push_back(x);
+                    }
+                }
+            }
+
+        }
+        sort(przeciecia.begin(), przeciecia.end());
+
+        for(std::size_t i=0; i < przeciecia.size(); i+=2){
+            for(int j=przeciecia[i]; j< przeciecia[i+1]; j++){
+                putPixel(j, y, &im, red, green, blue);
+            }
+        }
+        przeciecia.clear();
     }
 }
 
@@ -335,4 +421,15 @@ void MyWidget::clearIm()
 void MyWidget::setWybor(const QString &value)
 {
     wybor = value;
+}
+
+//rysowanie jednego pixela o kolorze rgb na obrazku imag
+void MyWidget::putDot(int x, int y, QImage *imag, int r, int g, int b)
+{
+    for(int i = x-3; i <= x+3; i++){
+        for(int j = y-3; j < y+3; j++){
+            if((i-x)*(i-x) + (j-y)*(j-y) <= 9)
+            putPixel(i,j,imag,r,g,b);
+        }
+    }
 }

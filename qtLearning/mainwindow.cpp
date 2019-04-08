@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     namesMenu->append("Okrag");
     namesMenu->append("Elipsa");
     namesMenu->append("FloodFill");
+    namesMenu->append("ScanLine");
     ui->comboBox->addItems(*namesMenu);
 
     QPalette pal;
@@ -28,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->elipseRotationSlider->setHidden(true);
     ui->floodFillLabel->setHidden(true);
     ui->floodFillButton->setHidden(true);
+    ui->scanLineButton->setHidden(true);
 }
 
 MainWindow::~MainWindow()
@@ -43,16 +45,26 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->elipseRotationSlider->setHidden(true);
         ui->floodFillLabel->setHidden(true);
         ui->floodFillButton->setHidden(true);
+        ui->scanLineButton->setHidden(true);
     }
     else if(arg1 == "Elipsa"){
         ui->elipseRotationSlider->show();
         ui->spraySlider->setHidden(true);
         ui->floodFillLabel->setHidden(true);
         ui->floodFillButton->setHidden(true);
+        ui->scanLineButton->setHidden(true);
     }
     else if(arg1 == "FloodFill"){
         ui->floodFillLabel->show();
         ui->floodFillButton->show();
+        ui->spraySlider->setHidden(true);
+        ui->elipseRotationSlider->setHidden(true);
+        ui->scanLineButton->setHidden(true);
+    }
+    else if(arg1 == "ScanLine"){
+        ui->scanLineButton->show();
+        ui->floodFillLabel->setHidden(true);
+        ui->floodFillButton->setHidden(true);
         ui->spraySlider->setHidden(true);
         ui->elipseRotationSlider->setHidden(true);
     }
@@ -61,6 +73,7 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->elipseRotationSlider->setHidden(true);
         ui->floodFillLabel->setHidden(true);
         ui->floodFillButton->setHidden(true);
+        ui->scanLineButton->setHidden(true);
     }
 }
 
@@ -79,6 +92,7 @@ void MainWindow::on_clearButton_clicked()
 {
     ui->widget->clearIm();
     ui->widget->update();
+    ui->widget->scanLinePoints.clear();
     ui->widget->setIsPaintedElipse(false);
 }
 
@@ -104,4 +118,10 @@ void MainWindow::on_floodFillButton_clicked()
     pal.setColor(QPalette::Button, color);
     ui->floodFillButton->setAutoFillBackground(true);
     ui->floodFillButton->setPalette(pal);
+}
+
+void MainWindow::on_scanLineButton_clicked()
+{
+    ui->widget->scanLine(ui->widget->scanLinePoints);
+    update();
 }

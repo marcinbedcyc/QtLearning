@@ -28,6 +28,8 @@ private slots:
 
     void on_floodFillButton_clicked();
 
+    void on_scanLineButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

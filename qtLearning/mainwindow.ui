@@ -133,6 +133,19 @@
      <string>Fill color:</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="scanLineButton">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>230</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DRAW</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
