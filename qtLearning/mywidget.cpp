@@ -14,27 +14,13 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
     spraySize = 30;
     elipseBeta = 0;
     isPaintedElipse = false;
-
-    std::vector<QPoint> punkty;
-    punkty.push_back(QPoint(300, 50));
-    //putPixel(300, 50, &im, 255, 255, 255);
-
-    punkty.push_back(QPoint(400, 150));
-    //putPixel(400, 150, &im, 255, 255, 255);
-
-    punkty.push_back(QPoint(500, 50));
-    //putPixel(500, 50, &im, 255, 255, 255);
-
-    punkty.push_back(QPoint(400, 200));
-    //putPixel(300, 200, &im, 255, 255, 255);
-
-    punkty.push_back(QPoint(300, 250));
-    //putPixel(300, 250, &im, 255, 255, 255);
-
-    punkty.push_back(QPoint(200, 150));
-    //putPixel(200, 150, &im, 255, 255, 255);
-
-    //scanLine(punkty);
+    //putCirclevol1(300, 300, 100, &im, red, green, blue);
+    //QPoint p = QPoint(300, 300);
+    //floodFill(p, im.pixel(300, 300), QColor(Qt::white).rgb(), &im);
+    //dilation();
+    //erosion();
+    //putCirclevol1(300, 300, 100, &im, red, green, blue);
+    //floodFill(p, im.pixel(300, 300), QColor(Qt::white).rgb(), &im);
 }
 
 void MyWidget::paintEvent(QPaintEvent *)
@@ -386,6 +372,91 @@ void MyWidget::scanLine(std::vector<QPoint> polygon)
     }
 }
 
+void MyWidget::erosion(int r=1)
+{
+    QImage result = im;
+    result.fill(Qt::black);
+    int imageWidth = im.width();
+    int imageHeight = im.height();
+
+    for(int y=0; y < imageHeight; y++){
+        for(int x=0; x < imageWidth; x++){
+            if(checkErosion(x, y, &im, r)){
+                putPixel(x, y, &result, 255, 255, 255);
+            }
+        }
+    }
+    im = result;
+    update();
+}
+
+void MyWidget::dilation(int r=1)
+{
+    QImage result = im;
+    result.fill(Qt::black);
+    int imageWidth = im.width();
+    int imageHeight = im.height();
+
+    for(int y=0; y < imageHeight; y++){
+        for(int x=0; x < imageWidth; x++){
+            if(checkDilation(x, y, &im, r)){
+                putPixel(x, y, &result, 255, 255, 255);
+            }
+        }
+    }
+    im = result;
+    update();
+}
+
+void MyWidget::closing(int r=1)
+{
+    dilation(r);
+    erosion(r);
+}
+
+void MyWidget::opening(int r=1)
+{
+    erosion(r);
+    dilation(r);
+}
+
+bool MyWidget::checkDilation(int x, int y, QImage *imag, int r)
+{
+    int imageHeight = imag->height();
+    int imageWidth = imag->width();
+    bool result = false;
+
+    for(int i = y-r; i <= y+r; i++){
+        for(int j = x-r; j <= x+r; j++){
+            if(i >= 0 && j >= 0 && j < imageWidth && i < imageHeight)
+                if(imag->pixel(j, i) == QColor(Qt::white).rgb()){
+                    result = true;
+                    break;
+                }
+        }
+    }
+    return result;
+}
+
+bool MyWidget::checkErosion(int x, int y, QImage *imag, int r)
+{
+    int imageHeight = imag->height();
+    int imageWidth = imag->width();
+    bool result = true;
+
+    for(int i = y-r; i <= y+r; i++){
+        for(int j = x-r; j <= x+r; j++){
+            if(i >= 0 && j >= 0 && j < imageWidth && i < imageHeight)
+                if(imag->pixel(j, i) != QColor(Qt::white).rgb() && i != j){
+                    result = false;
+                    return result;
+                }
+        }
+    }
+    return result;
+}
+
+
 void MyWidget::setIsPaintedElipse(bool value)
 {
     isPaintedElipse = value;
@@ -429,7 +500,7 @@ void MyWidget::putDot(int x, int y, QImage *imag, int r, int g, int b)
     for(int i = x-3; i <= x+3; i++){
         for(int j = y-3; j < y+3; j++){
             if((i-x)*(i-x) + (j-y)*(j-y) <= 9)
-            putPixel(i,j,imag,r,g,b);
+                putPixel(i,j,imag,r,g,b);
         }
     }
 }

@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     namesMenu->append("Elipsa");
     namesMenu->append("FloodFill");
     namesMenu->append("ScanLine");
+    namesMenu->append("Operacje morfoloficzne");
     ui->comboBox->addItems(*namesMenu);
 
     QPalette pal;
@@ -30,6 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->floodFillLabel->setHidden(true);
     ui->floodFillButton->setHidden(true);
     ui->scanLineButton->setHidden(true);
+    ui->erosionButton->setHidden(true);
+    ui->dilationButton->setHidden(true);
+    ui->openingButton->setHidden(true);
+    ui->closingButton->setHidden(true);
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +51,10 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->floodFillLabel->setHidden(true);
         ui->floodFillButton->setHidden(true);
         ui->scanLineButton->setHidden(true);
+        ui->erosionButton->setHidden(true);
+        ui->dilationButton->setHidden(true);
+        ui->openingButton->setHidden(true);
+        ui->closingButton->setHidden(true);
     }
     else if(arg1 == "Elipsa"){
         ui->elipseRotationSlider->show();
@@ -53,6 +62,10 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->floodFillLabel->setHidden(true);
         ui->floodFillButton->setHidden(true);
         ui->scanLineButton->setHidden(true);
+        ui->erosionButton->setHidden(true);
+        ui->dilationButton->setHidden(true);
+        ui->openingButton->setHidden(true);
+        ui->closingButton->setHidden(true);
     }
     else if(arg1 == "FloodFill"){
         ui->floodFillLabel->show();
@@ -60,6 +73,10 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->spraySlider->setHidden(true);
         ui->elipseRotationSlider->setHidden(true);
         ui->scanLineButton->setHidden(true);
+        ui->erosionButton->setHidden(true);
+        ui->dilationButton->setHidden(true);
+        ui->openingButton->setHidden(true);
+        ui->closingButton->setHidden(true);
     }
     else if(arg1 == "ScanLine"){
         ui->scanLineButton->show();
@@ -67,6 +84,21 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->floodFillButton->setHidden(true);
         ui->spraySlider->setHidden(true);
         ui->elipseRotationSlider->setHidden(true);
+        ui->erosionButton->setHidden(true);
+        ui->dilationButton->setHidden(true);
+        ui->openingButton->setHidden(true);
+        ui->closingButton->setHidden(true);
+    }
+    else if (arg1 == "Operacje morfoloficzne") {
+        ui->spraySlider->setHidden(true);
+        ui->elipseRotationSlider->setHidden(true);
+        ui->floodFillLabel->setHidden(true);
+        ui->floodFillButton->setHidden(true);
+        ui->scanLineButton->setHidden(true);
+        ui->erosionButton->show();
+        ui->dilationButton->show();
+        ui->openingButton->show();
+        ui->closingButton->show();
     }
     else {
         ui->spraySlider->setHidden(true);
@@ -74,6 +106,10 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
         ui->floodFillLabel->setHidden(true);
         ui->floodFillButton->setHidden(true);
         ui->scanLineButton->setHidden(true);
+        ui->erosionButton->setHidden(true);
+        ui->dilationButton->setHidden(true);
+        ui->openingButton->setHidden(true);
+        ui->closingButton->setHidden(true);
     }
 }
 
@@ -124,4 +160,24 @@ void MainWindow::on_scanLineButton_clicked()
 {
     ui->widget->scanLine(ui->widget->scanLinePoints);
     update();
+}
+
+void MainWindow::on_erosionButton_clicked()
+{
+    ui->widget->erosion(1);
+}
+
+void MainWindow::on_dilationButton_clicked()
+{
+    ui->widget->dilation(1);
+}
+
+void MainWindow::on_openingButton_clicked()
+{
+    ui->widget->opening(1);
+}
+
+void MainWindow::on_closingButton_clicked()
+{
+    ui->widget->closing(3);
 }

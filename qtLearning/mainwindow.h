@@ -30,6 +30,14 @@ private slots:
 
     void on_scanLineButton_clicked();
 
+    void on_erosionButton_clicked();
+
+    void on_dilationButton_clicked();
+
+    void on_openingButton_clicked();
+
+    void on_closingButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

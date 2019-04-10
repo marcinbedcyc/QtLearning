@@ -20,6 +20,10 @@ public:
     bool getIsPaintedElipse() const;
     void setIsPaintedElipse(bool value);
     void scanLine(std::vector<QPoint> polygon);
+    void erosion(int r);
+    void dilation(int r);
+    void closing(int r);
+    void opening(int r);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -41,6 +45,8 @@ private:
     double elipseBeta;
     QString wybor;
     bool isPaintedElipse;
+    bool checkDilation(int x, int y, QImage *imag, int r=1);
+    bool checkErosion(int x, int y, QImage *imag, int r=1);
 
 signals:
 

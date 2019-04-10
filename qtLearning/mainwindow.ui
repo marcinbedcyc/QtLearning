@@ -146,6 +146,58 @@
      <string>DRAW</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="erosionButton">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>340</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Erozja</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dilationButton">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>380</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dylatacja</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openingButton">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>420</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Otwarcie</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closingButton">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>460</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Zamkniecie</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
