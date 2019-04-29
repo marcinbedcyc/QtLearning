@@ -7,7 +7,6 @@ class MyWidget : public QWidget
 {
     Q_OBJECT
     QImage image, orignalImage;
-    QColor color;
     QString filename;
     int red, green, blue, h, s, v, hPlus, sPlus, vPlus;
     void paintEvent(QPaintEvent *);

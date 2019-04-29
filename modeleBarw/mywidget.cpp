@@ -12,6 +12,7 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
 
 void MyWidget::changePixels()
 {
+    QColor color;
     for(int y=0; y < image.size().height(); y++){
         for(int x = 0; x < image.size().width(); x++){
             orignalImage.pixelColor(x, y).getRgb(&red, &green, &blue);
@@ -19,9 +20,11 @@ void MyWidget::changePixels()
             if(hPlus <= 0 )
                 hPlus += 360;
 
-            h += hPlus;
+            h += hPlus;     
             s += sPlus;
             v += vPlus;
+
+            h = h % 360;
 
             if(s >=255 )s = 255;
             else if(s <= 0) s = 0;
