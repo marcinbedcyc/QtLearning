@@ -47,3 +47,21 @@ user chose points, connection between pairs creates edge, then it fills inside o
 
 #### Morphology Operations:
 ![Morphology](http://www-users.mat.umk.pl/~marcinbedcyc/images/morphology.png)
+
+***
+### BLENDMODES
+Blend modes project is about mixing layers using blend modes. I use modes like normal, average, multiply, darken, lighten, screen. 
+Program is easy expandable with new blend functions. There are 3 permanently chosen images as layers, they have the same dimension (each width and height of images are the same)
+to make code easier to write and rather focus on blend modes than on user's interface and scalability of image.
+
+#### Example of mix:
+![BlendMode](http://www-users.mat.umk.pl/~marcinbedcyc/images/blendModes.png)
+
+#### Layers 0:
+![Layers0](http://www-users.mat.umk.pl/~marcinbedcyc/images/gradient.png)
+
+#### Layers 1:
+![Layers1](http://www-users.mat.umk.pl/~marcinbedcyc/images/plaza.png)
+
+#### Layers 2:
+![Layers2](http://www-users.mat.umk.pl/~marcinbedcyc/images/zamek.png)
