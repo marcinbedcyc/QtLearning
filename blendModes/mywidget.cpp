@@ -106,9 +106,9 @@ QImage MyWidget::averageBlend(QImage *image1, QImage *image2)
         for(int y = 0; y < height; y++){
             colorImage1 = image1->pixel(x, y);
             colorImage2 = image2->pixel(x, y);
-            r = 255 - ( (255-colorImage1.red()) * (255-colorImage2.red()) >> 8 );
-            g = 255 - ( (255-colorImage1.green()) * (255-colorImage2.green()) >> 8 );
-            b = 255 - ( (255-colorImage1.blue()) * (255-colorImage2.blue()) >> 8 );
+            r = 255 - ( (255-colorImage1.red()) + (255-colorImage2.red()) >> 1 );
+            g = 255 - ( (255-colorImage1.green()) + (255-colorImage2.green()) >> 1 );
+            b = 255 - ( (255-colorImage1.blue()) + (255-colorImage2.blue()) >> 1 );
             color.setRgb(r, g, b);
             result.setPixelColor(x, y, color);
         }
@@ -152,9 +152,9 @@ QImage MyWidget::screenBlend(QImage *image1, QImage *image2)
         for(int y = 0; y < height; y++){
             colorImage1 = image1->pixel(x, y);
             colorImage2 = image2->pixel(x, y);
-            r = ( colorImage1.red() * colorImage2.red() ) >> 8;
-            g = ( colorImage1.green() * colorImage2.green() ) >> 8;
-            b = ( colorImage1.blue() * colorImage2.blue() ) >> 8;
+            r =  255 - ( (255 - colorImage1.red() ) * ( 255 - colorImage2.red() ) >> 8);
+            g = 255 - ( (255 - colorImage1.green() ) * ( 255 - colorImage2.green() ) >> 8);
+            b = 255 - ( (255 - colorImage1.blue() ) * ( 255 - colorImage2.blue() ) >> 8);
             color.setRgb(r, g, b);
             result.setPixelColor(x, y, color);
         }
