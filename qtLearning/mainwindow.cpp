@@ -164,20 +164,20 @@ void MainWindow::on_scanLineButton_clicked()
 
 void MainWindow::on_erosionButton_clicked()
 {
-    ui->widget->erosion(2);
+    ui->widget->erosion(1);
 }
 
 void MainWindow::on_dilationButton_clicked()
 {
-    ui->widget->dilation(2);
+    ui->widget->dilation(1);
 }
 
 void MainWindow::on_openingButton_clicked()
 {
-    ui->widget->opening(2);
+    ui->widget->opening(1);
 }
 
 void MainWindow::on_closingButton_clicked()
 {
-    ui->widget->closing(2);
+    ui->widget->closing(1);
 }

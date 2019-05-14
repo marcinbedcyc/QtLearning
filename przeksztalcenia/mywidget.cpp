@@ -17,14 +17,11 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent){
         values[i] = new double[3];
     }
 
-    double alfa = 100.00 * M_PI / 180.0;
-    double sh = 0.1;
-
-    values[0][0] = 1;//cos(alfa);
-    values[0][1] = 0;///-1 * sin(alfa);
+    values[0][0] = 1;
+    values[0][1] = 0;
     values[0][2] = 0;
-    values[1][0] = 0;//sin(alfa);
-    values[1][1] = 1;//cos(alfa);
+    values[1][0] = 0;
+    values[1][1] = 1;
     values[1][2] = 0;
     values[2][0] = 0;
     values[2][1] = 0;
