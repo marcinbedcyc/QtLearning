@@ -1,10 +1,12 @@
 # QtLearning
 Exercises from Graphics And Multimedia Labs about all kind of algorithms connected to paiting/drawing shapes on computer's screen
-The project has 4 sections: 
+The project has 6 sections: 
 - Curves, 
 - QtLearning, 
 - ModeleBarw (in Engilsh color Palette RGB, HSV),
 - BlendModes
+- 2D transforming
+- Texturing
 
 ***
 ### CURVES
@@ -65,3 +67,20 @@ to make code easier to write and rather focus on blend modes than on user's inte
 
 #### Layers 2:
 ![Layers2](http://www-users.mat.umk.pl/~marcinbedcyc/images/zamek.png)
+
+***
+### 2D TRANSFORMING
+This section is about transforming on 2D Image e.g scale, rotation, shearing, translation. The result is computed using translation matrix and homogeneous coordinates. I only change coordinates of vertcices, not every pixel on image. The image is very simple, kind of house. After changing coordiantes of vertices there are drown lines between them.
+
+#### Orginal Image:
+![Orginal](http://www-users.mat.umk.pl/~marcinbedcyc/images/before.png)
+
+#### After transfoming:
+![Transformed](http://www-users.mat.umk.pl/~marcinbedcyc/images/after.png)
+
+***
+### TEXTURING
+Texturing is about simple presenting a fragment of bitmap on black image. I use only one traingle. User chose 3 vertices on black image and 3 vertices on bitmap iamge. Then the triangle on bitmap is mapped to triangle on black image. After checking checkBox "zmień punkty" user can move vertices as on bitmap as on black image.
+
+#### Texturing:
+![Texturing](http://www-users.mat.umk.pl/~marcinbedcyc/images/texturing.png)
