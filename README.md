@@ -5,8 +5,9 @@ The project has 6 sections:
 - QtLearning, 
 - ModeleBarw (in Engilsh color Palette RGB, HSV),
 - BlendModes
-- 2D transforming
+- 2D transforming (przeksztalcenia)
 - Texturing
+- 3D transforming (bryla3D)
 
 ***
 ### CURVES
@@ -84,3 +85,10 @@ Texturing is about simple presenting a fragment of bitmap on black image. I use 
 
 #### Texturing:
 ![Texturing](http://www-users.mat.umk.pl/~marcinbedcyc/images/texturing.png)
+
+***
+### 3D transforming
+Here we have a simple cube, which we can rotate, change its position, scale it and shear it by using adequate sliders. The result image is shown in parallel projection. It is changeable to perspective projection by check checkBox. x, y, z is scalable separately or together(homogeneous scaling) after checking an other checkBox. 
+
+#### Cube:
+![cube](http://www-users.mat.umk.pl/~marcinbedcyc/images/3D.png)
