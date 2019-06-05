@@ -6,7 +6,7 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
 {
     image = QImage(800, 680, QImage::Format_RGB32);
     image.fill(Qt::black);
-    red = green = blue = 255;
+    red = green = blue = 0;
     isPerspective = false;
 
     /*orginalImage.push_back(QVector3D(-100,100,100));
@@ -174,6 +174,8 @@ void MyWidget::drawPicture()
         rzutPerspektywiczny();
     else
         rzutRownolegly();
+    red = 255;
+    blue = 0;
     if(!(imageToDraw[0].x() == -1 || imageToDraw[0].y() == -1 || imageToDraw[1].x() == -1 || imageToDraw[1].y() == -1))
         putLineVol2(imageToDraw[0].x(), imageToDraw[0].y(), imageToDraw[1].x(), imageToDraw[1].y(), &image, red, green, blue);
     if(!(imageToDraw[1].x() == -1 || imageToDraw[1].y() == -1 || imageToDraw[2].x() == -1 || imageToDraw[2].y() == -1))
@@ -183,6 +185,8 @@ void MyWidget::drawPicture()
     if(!(imageToDraw[3].x() == -1 || imageToDraw[3].y() == -1 || imageToDraw[0].x() == -1 || imageToDraw[0].y() == -1))
         putLineVol2(imageToDraw[3].x(), imageToDraw[3].y(), imageToDraw[0].x(), imageToDraw[0].y(), &image, red, green, blue);
 
+    green = 255;
+    red = 0;
     if(!(imageToDraw[4].x() == -1 || imageToDraw[4].y() == -1 || imageToDraw[5].x() == -1 || imageToDraw[5].y() == -1))
         putLineVol2(imageToDraw[4].x(), imageToDraw[4].y(), imageToDraw[5].x(), imageToDraw[5].y(), &image, red, green, blue);
     if(!(imageToDraw[5].x() == -1 || imageToDraw[5].y() == -1 || imageToDraw[6].x() == -1 || imageToDraw[6].y() == -1))
@@ -192,6 +196,8 @@ void MyWidget::drawPicture()
     if(!(imageToDraw[7].x() == -1 || imageToDraw[7].y() == -1 || imageToDraw[4].x() == -1 || imageToDraw[4].y() == -1))
         putLineVol2(imageToDraw[7].x(), imageToDraw[7].y(), imageToDraw[4].x(), imageToDraw[4].y(), &image, red, green, blue);
 
+    blue = 255;
+    green = 0;
     if(!(imageToDraw[0].x() == -1 || imageToDraw[0].y() == -1 || imageToDraw[4].x() == -1 || imageToDraw[4].y() == -1))
         putLineVol2(imageToDraw[0].x(), imageToDraw[0].y(), imageToDraw[4].x(), imageToDraw[4].y(), &image, red, green, blue);
     if(!(imageToDraw[0].x() == -1 || imageToDraw[0].y() == -1 || imageToDraw[5].x() == -1 || imageToDraw[5].y() == -1))
