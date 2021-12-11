@@ -1,0 +1,6 @@
+# Ignore QtCreator user's settings
+**/*.user
+**/*.user.*
+
+# Ignore build files
+build*/
