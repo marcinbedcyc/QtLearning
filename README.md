@@ -54,8 +54,10 @@ user chose points, connection between pairs creates edge, then it fills inside o
 ![Scan line](screenshots/scanLine.png)
 
 #### Morphology Operations:
-![Morphology](http://www-users.mat.umk.pl/~marcinbedcyc/images/morphology.png)
-
+##### Before:
+![Morphology Before](screenshots/morph_before.png)
+##### Before:
+![Morphology After](screenshots/morph_after.png)
 ***
 ### BLENDMODES
 Blend modes project is about mixing layers using blend modes. I use modes like normal, average, multiply, darken, lighten, screen.
