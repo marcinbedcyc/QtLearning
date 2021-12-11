@@ -27,6 +27,7 @@ void myWidget::paintEvent(QPaintEvent*){
     p.drawImage(0, 0, im);
 }
 
+// Changing between bezier and bspline by comment and uncomment drawing methods
 void myWidget::mousePressEvent(QMouseEvent *m){
     int x, y;
     x = m->x();
