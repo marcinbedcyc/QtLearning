@@ -66,13 +66,13 @@ to make code easier to write and rather focus on blend modes than on user's inte
 ![BlendMode](http://www-users.mat.umk.pl/~marcinbedcyc/images/blendModes.png)
 
 #### Layers 0:
-![Layers0](http://www-users.mat.umk.pl/~marcinbedcyc/images/gradient.png)
+![Layers0](blendModes/images/gradient.png)
 
 #### Layers 1:
-![Layers1](http://www-users.mat.umk.pl/~marcinbedcyc/images/plaza.png)
+![Layers1](blendModes/images/plaza.png)
 
 #### Layers 2:
-![Layers2](http://www-users.mat.umk.pl/~marcinbedcyc/images/zamek.png)
+![Layers2](blendModes/images/zamek.png)
 
 ***
 ### 2D TRANSFORMING
@@ -100,9 +100,11 @@ Here we have a simple cube, which we can rotate, change its position, scale it a
 
 
 # Development
-1. Clone repo to your device
-```
-git clone https://github.com/marcinbedcyc/QtLearning.git
-```
+1. Clone repo to your device eg.:
+    ```
+    git clone https://github.com/marcinbedcyc/QtLearning.git
+    ```
 1. Open selected project in QtCreator eg. curves. File > Open File or Project and choose curves.pro.
 1. Run with QtCreator GUI.
+
+\* If you have some problems with open projects try to remove all *.user files and open again.
